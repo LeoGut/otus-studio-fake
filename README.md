@@ -1,4 +1,4 @@
-# Configuração de Ambiente
+# Configuração de Ambiente.
 
 ### Versões de ferramentas necessárias
 
