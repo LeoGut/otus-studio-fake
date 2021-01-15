@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('stepone') {
       steps {
-        git(url: 'git@github.com:LeoGut/otus-studio-fake.git', branch: 'dev')
+        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev')
       }
     }
 
