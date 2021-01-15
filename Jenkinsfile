@@ -9,8 +9,9 @@ pipeline {
 
     stage('steptwo') {
       steps {
+        nodejs 'node-15.6.0'
+        sh 'node --version'
         echo 'passou'
-        sh 'ls -la'
       }
     }
 
