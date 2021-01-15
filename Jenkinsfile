@@ -1,23 +1,20 @@
 pipeline {
   agent any
   stages {
-    stage('stepone') {
+    stage('checkout') {
       steps {
         git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev')
       }
     }
 
-    stage('steptwo') {
+    stage('build') {
       steps {
-        sh '''node --version
-npm install --prefix=source/'''
-        echo 'passou'
-      }
-    }
+        nodejs('node-15.6.0') {
+          sh 'node --version'
+          sh 'npm install --prefix=source/'
+          sh 'npm run test --prefix=source/'
+        }
 
-    stage('test') {
-      steps {
-        sh 'npm run test --prefix=source/'
       }
     }
 
