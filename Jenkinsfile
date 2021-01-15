@@ -10,6 +10,7 @@ pipeline {
     stage('steptwo') {
       steps {
         echo 'passou'
+        sh 'ls -la'
       }
     }
 
