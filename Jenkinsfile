@@ -9,9 +9,15 @@ pipeline {
 
     stage('steptwo') {
       steps {
-        nodejs 'node-15.6.0'
-        sh 'node --version'
+        sh '''node --version
+npm install --prefix=source/'''
         echo 'passou'
+      }
+    }
+
+    stage('test') {
+      steps {
+        sh 'npm run test --prefix=source/'
       }
     }
 
