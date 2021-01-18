@@ -24,6 +24,6 @@ npm install --prefix=source/
 
   }
   tools {
-    nodejs 'node-15.6.0'
+    nodejs 'node-10.18.1'
   }
 }
