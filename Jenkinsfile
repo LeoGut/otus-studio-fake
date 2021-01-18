@@ -11,10 +11,8 @@ pipeline {
       steps {
         withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
           sh 'node --version'
-          sh '''ls -al
-ls -al ./source
+          sh '''ls -al ./source
 mv .npmrc ./source/.npmrc
-ls -al
 ls -al ./source
 npm install --prefix=source/
 '''
