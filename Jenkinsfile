@@ -13,6 +13,7 @@ pipeline {
           sh 'node --version'
           sh '''mv .npmrc ./source/.npmrc
 ls -al ./source
+cat ./source/.npmrc
 npm install --prefix=source/
 '''
           sh '#npm run test --prefix=source/'
