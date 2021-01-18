@@ -13,7 +13,7 @@ pipeline {
           sh 'node --version'
           sh '''ls -al
 ls -al ./source
-mv .npmrc_config ./source/.npmrc
+mv .npmrc ./source/.npmrc
 ls -al
 ls -al ./source
 npm install --prefix=source/
