@@ -10,8 +10,7 @@ pipeline {
     stage('build') {
       steps {
         withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
-          sh '''apk add nodejs
-node --version'''
+          sh 'node --version'
           sh '''ls -al
 ls -al ./source
 #mv .npmrc_config ./source/.npmrc
