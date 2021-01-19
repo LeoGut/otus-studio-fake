@@ -14,6 +14,7 @@ pipeline {
           sh '''mv .npmrc ./source/.npmrc
 #ls -al ./source
 #cat ./source/.npmrc
+cat ./source/package.json
 npm install --prefix=source/
 '''
           sh '#npm run test --prefix=source/'
