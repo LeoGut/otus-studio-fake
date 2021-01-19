@@ -12,7 +12,7 @@ pipeline {
         withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
           sh 'node --version'
           sh '''#mv .npmrc ./source/.npmrc
-#ls -al ./source
+ls -al ./source
 #cat ./source/.npmrc
 npm install --prefix=source/
 '''
