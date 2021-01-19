@@ -14,7 +14,7 @@ pipeline {
           sh 'ls -al'
           sh 'mv .npmrc ./source/.npmrc'
           sh 'ls -al ./source'
-          sh 'npm install --prefix=source/'
+          sh '#npm install --prefix=source/'
           sh '#npm run test --prefix=source/'
         }
 
