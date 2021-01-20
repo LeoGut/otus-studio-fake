@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('checkout') {
+    stage('Checkout') {
       steps {
         git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev')
       }
@@ -29,7 +29,7 @@ pipeline {
       }
     }
 
-    stage('Build app') {
+    stage('Build App') {
       steps {
         sh '#npm install --prefix=source/'
         sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
@@ -43,15 +43,12 @@ pipeline {
       }
     }
 
-    stage('Build container') {
+    stage('Build Container') {
       steps {
-        sh 'docker images -a'
-        sh 'export IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"'
-        sh 'export previous_image=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")'
-        sh 'if [ ! -z ${previous_image} ]; then docker rmi ${previous_image}; fi'
-        sh 'docker images -a'
-        sh 'echo $IMAGE_NAME; #docker build -t $IMAGE_NAME:latest .'
-        sh 'docker images -a'
+        sh '''IMAGE_NAME="image name"
+echo $IMAGE_NAME
+echo ${IMAGE_NAME}
+echo "${IMAGE_NAME}"'''
       }
     }
 
