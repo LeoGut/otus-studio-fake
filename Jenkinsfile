@@ -45,10 +45,13 @@ pipeline {
 
     stage('Build Container') {
       steps {
-        sh '''IMAGE_NAME="image name"
-echo $IMAGE_NAME
-echo ${IMAGE_NAME}
-echo "${IMAGE_NAME}"'''
+        sh '''IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"
+echo "IMAGE_NAME"
+#export previous_image=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")
+#if [ ! -z ${previous_image} ]; then docker rmi ${previous_image}; fi
+#docker images -a
+#echo $IMAGE_NAME; #docker build -t $IMAGE_NAME:latest .
+#docker images -a'''
       }
     }
 
