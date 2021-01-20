@@ -7,16 +7,37 @@ pipeline {
       }
     }
 
-    stage('build') {
+    stage('Verify Tools') {
+      parallel {
+        stage('node') {
+          steps {
+            withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
+              sh 'node --version'
+              sh 'mv .npmrc ./source/.npmrc'
+              sh 'ls -al ./source'
+            }
+
+          }
+        }
+
+        stage('Verify ') {
+          steps {
+            sh 'docker -v'
+          }
+        }
+
+      }
+    }
+
+    stage('Build') {
       steps {
         withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
-          sh 'node --version'
           sh 'ls -al'
-          sh 'mv .npmrc ./source/.npmrc'
           sh 'ls -al ./source'
           sh 'npm install --prefix=source/'
-          sh '''export OPENSSL_CONF=$WORKSPACE/openssl.cnf
-npm run test --prefix=source/'''
+          sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
+          sh '#npm run test --prefix=source/'
+          sh 'npm run build --prefix=source/'
         }
 
       }
