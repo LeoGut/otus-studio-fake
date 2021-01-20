@@ -15,7 +15,7 @@ pipeline {
               sh 'mv .npmrc ./source/.npmrc'
             }
 
-            sh 'node --version'
+            sh 'node -v'
             sh 'npm -v'
           }
         }
@@ -31,9 +31,9 @@ pipeline {
 
     stage('Build App') {
       steps {
-        sh '#npm install --prefix=source/'
+        sh 'npm install --prefix=source/'
         sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
-        sh '#npm run build --prefix=source/'
+        sh 'npm run build --prefix=source/'
       }
     }
 
@@ -45,15 +45,11 @@ pipeline {
 
     stage('Build Container') {
       steps {
-        sh '''IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend";
-PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}");
-echo $PREVIOUS_IMAGE;
-if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Text"; fi;
-docker images -a;
-echo $IMAGE_NAME;
-docker build -t $IMAGE_NAME:latest .;
-docker images -a;
-docker images;'''
+        sh '''IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"
+'''
+        sh 'PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")'
+        sh 'if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Skipped image removal"; fi'
+        sh 'docker build -t $IMAGE_NAME:latest .'
       }
     }
 
