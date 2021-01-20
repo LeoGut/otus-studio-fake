@@ -48,7 +48,7 @@ pipeline {
         sh '''IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"
 PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")
 echo $PREVIOUS_IMAGE
-#if [ ! -z ${previous_image} ]; then docker rmi ${previous_image}; fi
+if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi ${previous_image}; else; echo "Text"; fi
 docker images -a
 #echo $IMAGE_NAME; #docker build -t $IMAGE_NAME:latest .
 #docker images -a'''
