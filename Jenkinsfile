@@ -46,8 +46,8 @@ pipeline {
     stage('Build container') {
       steps {
         sh 'docker images -a'
-        sh 'docker rmi $(docker images -a | grep "^<none>" | awk \'{print $3}\')'
-        sh 'docker build -t 34.95.196.22:8080/otus-studio-frontend:latest .'
+        sh '#docker rmi $(docker images -a | grep "^<none>" | awk \'{print $3}\')'
+        sh '#docker build -t 34.95.196.22:8080/otus-studio-frontend:latest .'
         sh 'docker images -a'
         sh 'docker ps -a'
         sh 'docker network ls --format "{{.Name}}" | grep -v host | grep -v bridge | grep -v none'
