@@ -20,7 +20,7 @@ pipeline {
           }
         }
 
-        stage('Verify ') {
+        stage('Docker') {
           steps {
             sh 'docker -v'
           }
