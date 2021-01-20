@@ -46,10 +46,10 @@ pipeline {
     stage('Build Container') {
       steps {
         sh '''IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"
-PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")
-if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Skipped image removal"; fi
-docker images -a
-docker build -t "$IMAGE_NAME:latest" .'''
+              PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")
+              if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Skipped image removal"; fi
+              docker images -a
+              docker build -t "$IMAGE_NAME:latest" .'''
       }
     }
 
