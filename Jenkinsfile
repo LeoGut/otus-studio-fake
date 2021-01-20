@@ -31,9 +31,9 @@ pipeline {
 
     stage('Build app') {
       steps {
-        sh 'npm install --prefix=source/'
+        sh '#npm install --prefix=source/'
         sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
-        sh 'npm run build --prefix=source/'
+        sh '#npm run build --prefix=source/'
       }
     }
 
@@ -46,11 +46,11 @@ pipeline {
     stage('Build container') {
       steps {
         sh 'docker images -a'
-        sh '#docker rmi $(docker images -a | grep "^<none>" | awk \'{print $3}\')'
+        sh 'docker rmi 34.95.196.22:8080/otus-studio-frontend:latest'
+        sh 'docker images -a'
         sh '#docker build -t 34.95.196.22:8080/otus-studio-frontend:latest .'
         sh 'docker images -a'
-        sh 'docker ps -a'
-        sh 'docker network ls --format "{{.Name}}" | grep -v host | grep -v bridge | grep -v none'
+        sh 'docker network ls'
       }
     }
 
