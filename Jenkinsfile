@@ -49,7 +49,7 @@ pipeline {
 PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")
 echo $PREVIOUS_IMAGE
 #if [ ! -z ${previous_image} ]; then docker rmi ${previous_image}; fi
-#docker images -a
+docker images -a
 #echo $IMAGE_NAME; #docker build -t $IMAGE_NAME:latest .
 #docker images -a'''
       }
