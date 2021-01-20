@@ -46,7 +46,7 @@ pipeline {
     stage('Build container') {
       steps {
         sh 'docker images -a'
-        sh 'docker build -t 34.95.196.22:8080/otus-studio-frontend:latest.'
+        sh 'docker build -t 34.95.196.22:8080/otus-studio-frontend:latest .'
         sh 'docker images -a'
       }
     }
