@@ -11,12 +11,10 @@ pipeline {
       parallel {
         stage('Node') {
           steps {
-            withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
-              sh 'node --version'
-              sh 'mv .npmrc ./source/.npmrc'
-              sh 'ls -al ./source'
-            }
-
+            withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c')
+            sh 'node --version'
+            sh 'mv .npmrc ./source/.npmrc'
+            sh 'ls -al ./source'
           }
         }
 
