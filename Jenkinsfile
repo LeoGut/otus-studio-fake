@@ -46,7 +46,7 @@ pipeline {
     stage('Build container') {
       steps {
         sh 'docker images -a'
-        sh 'IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"'
+        sh 'export IMAGE_NAME="34.95.196.22:8080/otus-studio-frontend"'
         sh 'previous_image=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")'
         sh 'if [ ! -z ${previous_image} ]; then docker rmi ${previous_image}; fi'
         sh 'docker images -a'
