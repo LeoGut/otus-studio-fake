@@ -16,7 +16,7 @@ pipeline {
             }
 
             sh 'node --version'
-            sh 'ls -al ./source'
+            sh 'npm -v'
           }
         }
 
@@ -29,14 +29,25 @@ pipeline {
       }
     }
 
-    stage('Build') {
+    stage('Build app') {
       steps {
-        sh 'ls -al'
-        sh 'ls -al ./source'
         sh 'npm install --prefix=source/'
         sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
-        sh '#npm run test --prefix=source/'
         sh 'npm run build --prefix=source/'
+      }
+    }
+
+    stage('Unit Tests') {
+      steps {
+        sh '#npm run test --prefix=source/'
+      }
+    }
+
+    stage('Build container') {
+      steps {
+        sh 'docker images -a'
+        sh 'docker build -t 34.95.196.22:8080/otus-studio-frontend:latest.'
+        sh 'docker images -a'
       }
     }
 
