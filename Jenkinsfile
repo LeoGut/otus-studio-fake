@@ -15,7 +15,8 @@ pipeline {
           sh 'mv .npmrc ./source/.npmrc'
           sh 'ls -al ./source'
           sh 'npm install --prefix=source/'
-          sh '#npm run test --prefix=source/'
+          sh '''export OPENSSL_CONF=$WORKSPACE/openssl.cnf
+npm run test --prefix=source/'''
         }
 
       }
