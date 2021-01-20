@@ -50,7 +50,8 @@ PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{
 echo $PREVIOUS_IMAGE
 if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi ${previous_image}; else echo "Text"; fi
 docker images -a
-#echo $IMAGE_NAME; #docker build -t $IMAGE_NAME:latest .
+echo $IMAGE_NAME;
+#docker build -t $IMAGE_NAME:latest .
 #docker images -a'''
       }
     }
