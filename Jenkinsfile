@@ -49,7 +49,8 @@ pipeline {
 '''
         sh 'PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")'
         sh 'if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Skipped image removal"; fi'
-        sh 'docker build -t $IMAGE_NAME:latest .'
+        sh 'docker images -a'
+        sh 'docker build -t "$IMAGE_NAME:latest" .'
       }
     }
 
