@@ -48,6 +48,8 @@ pipeline {
         sh 'docker images -a'
         sh 'docker build -t 34.95.196.22:8080/otus-studio-frontend:latest .'
         sh 'docker images -a'
+        sh 'docker ps -a'
+        sh 'printf "Existing networks:\\n\\n$(docker network ls --format "{{.Name}}" | grep -v host | grep -v bridge | grep -v none)\\n\\n"'
       }
     }
 
