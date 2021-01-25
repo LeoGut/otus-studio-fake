@@ -1,5 +1,5 @@
 # Configuração de Ambiente.
-# Teste Jenkins trigger: #01
+# Teste Jenkins trigger: #02
 
 ### Versões de ferramentas necessárias
 
