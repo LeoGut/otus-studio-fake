@@ -50,7 +50,9 @@ pipeline {
               if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Skipped image removal"; fi
               docker images -a
               docker rmi $(docker images -aq) | true
-              docker build -t "$IMAGE_NAME:latest" .'''
+              docker build -t "$IMAGE_NAME:latest" .
+              docker images -a
+'''
       }
     }
 
