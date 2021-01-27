@@ -51,8 +51,9 @@ pipeline {
               docker images -a
               docker rmi $(docker images -aq) | true
               docker build -t "$IMAGE_NAME:latest" .
-              docker system prune --all -f
               docker images -a
+'''
+        sh '''#docker system prune --all -f
 '''
       }
     }
