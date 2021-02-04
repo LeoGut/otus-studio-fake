@@ -49,7 +49,12 @@ pipeline {
               PREVIOUS_IMAGE=$(docker images -a $IMAGE_NAME:latest --format "{{.Repository}}:{{.Tag}}")
               if [ ! -z $PREVIOUS_IMAGE ]; then docker rmi $PREVIOUS_IMAGE; else echo "Skipped image removal"; fi
               docker images -a
-              docker build -t "$IMAGE_NAME:latest" .'''
+              docker rmi $(docker images -aq) | true
+              docker build -t "$IMAGE_NAME:latest" .
+              docker images -a
+'''
+        sh '''#docker system prune --all -f
+'''
       }
     }
 
