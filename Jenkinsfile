@@ -4,6 +4,6 @@ node {
  }
  stage('sayhi') {
   echo 'branch name ' + env.BRANCH_NAME
-  echo env
+  echo "$env"
  }
 }
