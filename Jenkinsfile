@@ -58,7 +58,7 @@ docker images'''
 
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'github')
+        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev')
         sh 'git status'
         script {
           echo 'branch name :' + env.BRANCH_NAME
