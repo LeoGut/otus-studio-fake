@@ -37,9 +37,12 @@ pipeline {
     stage('Build App') {
       steps {
         echo 'Reached \'Build App\' stage.'
-        sh '#export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
+        sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
         sh 'npm install --prefix=source/'
         sh 'npm run build --prefix=source/'
+        sh 'ls -al'
+        sh 'cat openssl.cnf'
+        sh 'echo $WORKSPACE'
       }
     }
 
