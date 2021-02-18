@@ -40,8 +40,7 @@ pipeline {
         nodejs('node-10.18.1') {
           sh 'npm install --prefix=source/'
           sh 'npm run build --prefix=source/'
-          sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"'
-          sh 'npm run test --prefix=source/'
+          sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
 
       }
