@@ -39,7 +39,7 @@ docker images'''
       steps {
         echo 'Reached \'Build App\' stage.'
         nodejs('node-10.18.1') {
-          sh '#npm install --prefix=source/'
+          sh 'npm install --prefix=source/'
           sh '#npm run build --prefix=source/'
         }
 
@@ -58,13 +58,12 @@ docker images'''
 
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev')
+        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'leogut-key')
         sh 'git status'
         script {
-          echo 'branch name :' + env.BRANCH_NAME
+          echo 'branch name: ' + env.BRANCH_NAME
         }
 
-        sh 'echo Branch Name: $BRANCH_NAME'
         sh 'git merge $BRANCH_NAME'
       }
     }
