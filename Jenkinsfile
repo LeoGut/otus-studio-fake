@@ -11,13 +11,15 @@ pipeline {
 
         stage('Node') {
           steps {
-            nodejs 'node-10.18.1'
-            withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
-              sh 'mv .npmrc ./source/.npmrc'
+            nodejs('node-10.18.1') {
+              withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
+                sh 'mv .npmrc ./source/.npmrc'
+              }
+
+              sh 'npm -v'
+              sh 'node -v'
             }
 
-            sh 'npm -v'
-            sh 'node -v'
           }
         }
 
