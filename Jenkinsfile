@@ -37,16 +37,16 @@ pipeline {
     stage('Build App') {
       steps {
         echo 'Reached \'Build App\' stage.'
-        sh '#npm install --prefix=source/'
-        sh '#export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
-        sh '#npm run build --prefix=source/'
+        sh 'npm install --prefix=source/'
+        sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
+        sh 'npm run build --prefix=source/'
       }
     }
 
     stage('Unit Tests') {
       steps {
         echo 'Reached \'Unit Tests\' stage.'
-        sh '#npm run test --prefix=source/'
+        sh 'npm run test --prefix=source/'
       }
     }
 
@@ -54,6 +54,7 @@ pipeline {
       steps {
         echo 'Reached \'Build container\' stage.'
         sh 'docker build -t "34.95.196.22:8080/otus-studio-fake:latest" .'
+        sh 'docker images 34.95.196.22:8080/otus-studio-fake'
       }
     }
 
