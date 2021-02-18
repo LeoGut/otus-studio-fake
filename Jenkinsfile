@@ -37,23 +37,19 @@ pipeline {
     stage('Build App') {
       steps {
         echo 'Reached \'Build App\' stage.'
-        sh 'ls -al ./source/'
-        sh '''echo "# An empty openssl.cnf file seems to be good enough for phantomjs" >> openssl.cnf
-cat openssl.cnf
-echo $WORKSPACE
-export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"
-echo $OPENSSL_CONF
+        sh '''#echo "# An empty openssl.cnf file seems to be good enough for phantomjs" >> openssl.cnf
+#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"
+
 '''
         sh 'npm install --prefix=source/'
         sh 'npm run build --prefix=source/'
-        sh 'npm run test --prefix=source/'
       }
     }
 
     stage('Unit Tests') {
       steps {
         echo 'Reached \'Unit Tests\' stage.'
-        sh 'ls -al ./source'
+        sh '#npm run test --prefix=source/'
       }
     }
 
