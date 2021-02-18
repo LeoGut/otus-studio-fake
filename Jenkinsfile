@@ -39,8 +39,8 @@ docker images'''
       steps {
         echo 'Reached \'Build App\' stage.'
         nodejs('node-10.18.1') {
-          sh 'npm install --prefix=source/'
-          sh 'npm run build --prefix=source/'
+          sh '#npm install --prefix=source/'
+          sh '#npm run build --prefix=source/'
         }
 
       }
@@ -56,9 +56,9 @@ docker images'''
       }
     }
 
-    stage('1') {
+    stage('Checkout') {
       steps {
-        git(url: '$oi', branch: 'dev', credentialsId: 'github')
+        git(url: '${oi}', branch: 'dev', credentialsId: 'github')
       }
     }
 
@@ -90,6 +90,6 @@ docker images'''
 
   }
   environment {
-    oi = '"https://github.com/LeoGut/otus-studio-fake.git"'
+    oi = 'https://github.com/LeoGut/otus-studio-fake.git'
   }
 }
