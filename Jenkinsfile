@@ -50,8 +50,8 @@ pipeline {
       steps {
         echo 'Reached \'Unit Tests\' stage.'
         sh 'ls -al ./source'
+        sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
         nodejs('node-10.18.1') {
-          sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
           sh 'npm run test --prefix=source/'
         }
 
