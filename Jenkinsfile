@@ -40,8 +40,8 @@ pipeline {
         nodejs('node-10.18.1') {
           sh 'npm install --prefix=source/'
           sh 'npm run build --prefix=source/'
-          sh '''echo "# An empty openssl.cnf file seems to be good enough for phantomjs" >> openssl.cnf
-export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"
+          sh '''#echo "# An empty openssl.cnf file seems to be good enough for phantomjs" >> openssl.cnf
+#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"
 npm run test --prefix=source/'''
         }
 
