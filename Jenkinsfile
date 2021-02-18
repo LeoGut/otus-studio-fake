@@ -42,7 +42,6 @@ pipeline {
         sh 'npm install --prefix=source/'
         sh 'npm run build --prefix=source/'
         sh 'ls -al'
-        sh 'cat openssl.cnf'
         sh 'echo $WORKSPACE'
       }
     }
