@@ -38,13 +38,11 @@ docker images'''
     stage('Build App') {
       steps {
         echo 'Reached \'Build App\' stage.'
-        sh 'ls -l ./source/'
         nodejs('node-10.18.1') {
           sh 'npm install --prefix=source/'
           sh '#npm run build --prefix=source/'
         }
 
-        sh 'ls -l ./source/'
       }
     }
 
