@@ -37,12 +37,9 @@ pipeline {
     stage('Build App') {
       steps {
         echo 'Reached \'Build App\' stage.'
-        nodejs('node-10.18.1') {
-          sh 'export OPENSSL_CONF=$WORKSPACE/source/openssl.cnf'
-          sh 'npm install --prefix=source/'
-          sh 'npm run build --prefix=source/'
-        }
-
+        sh 'export OPENSSL_CONF=$WORKSPACE/source/openssl.cnf'
+        sh 'npm install --prefix=source/'
+        sh 'npm run build --prefix=source/'
       }
     }
 
@@ -51,10 +48,7 @@ pipeline {
         echo 'Reached \'Unit Tests\' stage.'
         sh 'ls -al ./source'
         sh 'export OPENSSL_CONF=$WORKSPACE/source/openssl.cnf'
-        nodejs('node-10.18.1') {
-          sh 'npm run test --prefix=source/'
-        }
-
+        sh 'npm run test --prefix=source/'
       }
     }
 
@@ -67,5 +61,7 @@ pipeline {
     }
 
   }
-  tools {nodejs 'node-10.18.1'}
+  tools {
+    nodejs 'node-10.18.1'
+  }
 }
