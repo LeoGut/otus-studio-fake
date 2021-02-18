@@ -49,12 +49,12 @@ pipeline {
     stage('Unit Tests') {
       steps {
         echo 'Reached \'Unit Tests\' stage.'
+        sh 'ls -al ./source'
         nodejs('node-10.18.1') {
           sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
           sh 'npm run test --prefix=source/'
         }
 
-        sh 'ls -al ./source'
       }
     }
 
