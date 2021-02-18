@@ -50,7 +50,7 @@ pipeline {
       steps {
         echo 'Reached \'Unit Tests\' stage.'
         sh 'echo "# An empty openssl.cnf file seems to be good enough for phantomjs" >> openssl.cnf'
-        sh 'ls -al ./source'
+        sh 'ls -al '
         sh 'export OPENSSL_CONF=$WORKSPACE/openssl.cnf'
         sh 'npm run test --prefix=source/'
       }
