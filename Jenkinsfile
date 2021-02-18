@@ -59,7 +59,7 @@ docker images'''
     stage('Build Container') {
       steps {
         echo 'Reached \'Build container\' stage.'
-        sh 'docker build -t "34.95.196.22:8080/otus-studio-fake:latest" .'
+        sh 'docker build --no-cache -t "34.95.196.22:8080/otus-studio-fake:latest" .'
         sh 'docker images 34.95.196.22:8080/otus-studio-fake'
       }
     }
