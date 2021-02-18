@@ -67,4 +67,5 @@ pipeline {
     }
 
   }
+  tools {nodejs 'node-10.18.1'}
 }
