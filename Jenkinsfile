@@ -40,7 +40,6 @@ pipeline {
         nodejs('node-10.18.1') {
           sh 'npm install --prefix=source/'
           sh 'npm run build --prefix=source/'
-          sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
 
       }
@@ -49,7 +48,7 @@ pipeline {
     stage('Unit Tests') {
       steps {
         echo 'Reached \'Unit Tests\' stage.'
-        sh '#npm run test --prefix=source/'
+        sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
       }
     }
 
