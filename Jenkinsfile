@@ -56,6 +56,30 @@ docker images'''
       }
     }
 
+    stage('1') {
+      steps {
+        git(url: '$oi', branch: 'dev', credentialsId: 'github')
+      }
+    }
+
+    stage('2') {
+      steps {
+        echo '.'
+      }
+    }
+
+    stage('3') {
+      steps {
+        echo '.'
+      }
+    }
+
+    stage('4') {
+      steps {
+        echo '.'
+      }
+    }
+
     stage('Build Container') {
       steps {
         echo 'Reached \'Build container\' stage.'
@@ -64,5 +88,8 @@ docker images'''
       }
     }
 
+  }
+  environment {
+    oi = '"https://github.com/LeoGut/otus-studio-fake.git"'
   }
 }
