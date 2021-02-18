@@ -54,6 +54,7 @@ pipeline {
           sh 'npm run test --prefix=source/'
         }
 
+        sh 'ls -al ./source'
       }
     }
 
