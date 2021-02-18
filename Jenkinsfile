@@ -58,7 +58,14 @@ docker images'''
 
     stage('Checkout') {
       steps {
-        git(url: '${oi}', branch: 'dev', credentialsId: 'github')
+        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'github')
+        sh 'git status'
+        script {
+          echo 'branch name :' + env.BRANCH_NAME
+        }
+
+        sh 'echo Branch Name: $BRANCH_NAME'
+        sh 'git merge $BRANCH_NAME'
       }
     }
 
@@ -88,8 +95,5 @@ docker images'''
       }
     }
 
-  }
-  environment {
-    oi = 'https://github.com/LeoGut/otus-studio-fake.git'
   }
 }
