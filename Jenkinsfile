@@ -1,12 +1,13 @@
 pipeline {
   agent any
   stages {
+
     stage('Verify Tools') {
       parallel {
         stage('Docker') {
           steps {
             sh '''docker -v
-docker images'''
+                  docker images'''
           }
         }
 
@@ -16,11 +17,9 @@ docker images'''
               withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
                 sh 'mv .npmrc ./source/.npmrc'
               }
-
               sh 'npm -v'
               sh 'node -v'
             }
-
           }
         }
 
@@ -31,7 +30,6 @@ docker images'''
             sh 'git rev-parse --abbrev-ref HEAD'
           }
         }
-
       }
     }
 
@@ -42,7 +40,6 @@ docker images'''
           sh 'npm install --prefix=source/'
           sh '#npm run build --prefix=source/'
         }
-
       }
     }
 
@@ -52,7 +49,6 @@ docker images'''
         nodejs('node-10.18.1') {
           sh '#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
-
       }
     }
 
@@ -63,7 +59,6 @@ docker images'''
         script {
           echo 'branch name: ' + env.BRANCH_NAME
         }
-
         sh 'git merge $BRANCH_NAME'
       }
     }
@@ -93,6 +88,6 @@ docker images'''
         sh 'docker images 34.95.196.22:8080/otus-studio-fake'
       }
     }
-
   }
 }
+
