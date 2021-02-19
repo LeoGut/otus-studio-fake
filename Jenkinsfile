@@ -97,10 +97,10 @@ pipeline {
     stage('Build Container') {
       steps {
         echo 'Reached \'Build container\' stage.'
-        sh 'docker build --no-cache -t "34.95.196.22:8080/otus-studio-fake:latest" .'
+        sh 'docker build --no-cache -t "otus-studio-fake:latest" .'
         sh 'docker images 34.95.196.22:8080/otus-studio-fake'
-        sh '''docker tag otus-studio-fake:latest 34.95.196.22:8080/otus-studio-fake:latest
-docker push 34.95.196.22:8080/otus-studio-fake:latest'''
+        sh 'docker tag otus-studio-fake:latest 34.95.196.22:8080/otus-studio-fake:latest'
+        sh 'docker push 34.95.196.22:8080/otus-studio-fake:latest'
       }
     }
 
