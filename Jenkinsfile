@@ -1,7 +1,6 @@
 pipeline {
   agent any
   stages {
-
     stage('Verify Tools') {
       parallel {
         stage('Docker') {
@@ -17,9 +16,11 @@ pipeline {
               withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
                 sh 'mv .npmrc ./source/.npmrc'
               }
+
               sh 'npm -v'
               sh 'node -v'
             }
+
           }
         }
 
@@ -30,54 +31,73 @@ pipeline {
             sh 'git rev-parse --abbrev-ref HEAD'
           }
         }
+
       }
     }
 
-    stage('Build App') {
+    stage('Build App (branch)') {
       steps {
-        echo 'Reached \'Build App\' stage.'
+        echo 'Reached \'Build App (branch)\' stage.'
         nodejs('node-10.18.1') {
           sh 'npm install --prefix=source/'
-          sh '#npm run build --prefix=source/'
+          sh 'npm run build --prefix=source/'
         }
+
       }
     }
 
-    stage('Unit Tests') {
+    stage('Unit Tests (branch)') {
       steps {
-        echo 'Reached \'Unit Tests\' stage.'
+        echo 'Reached \'Unit Tests (branch)\' stage.'
         nodejs('node-10.18.1') {
           sh '#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
+
       }
     }
 
     stage('Checkout') {
       steps {
+        echo 'Reached \'Checkout\' stage.'
         git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'leogut-key')
         sh 'git status'
         script {
           echo 'branch name: ' + env.BRANCH_NAME
         }
+
         sh 'git merge $BRANCH_NAME'
       }
     }
 
-    stage('2') {
+    stage('Build App (merged)') {
       steps {
-        echo '.'
+        echo 'Reached \'Build App (merged)\' stage.'
+        nodejs('node-10.18.1') {
+          withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
+            sh 'mv .npmrc ./source/.npmrc'
+          }
+
+          sh 'npm install --prefix=source/'
+          sh 'npm run build --prefix=source/'
+        }
+
       }
     }
 
-    stage('3') {
+    stage('Unit Tests (merged)') {
       steps {
-        echo '.'
+        echo 'Reached \'Unit Tests (merged)\' stage.'
+        nodejs('node-10.18.1') {
+          sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
+        }
+
       }
     }
 
-    stage('4') {
+    stage('Docker Build') {
       steps {
-        echo '.'
+        echo 'Reache \'Docker Build\' stage.'
+        sh 'docker build -t "34.95.196.22:8080/image_name_here:latest" .'
       }
     }
 
@@ -88,6 +108,6 @@ pipeline {
         sh 'docker images 34.95.196.22:8080/otus-studio-fake'
       }
     }
+
   }
 }
-
