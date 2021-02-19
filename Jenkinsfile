@@ -104,5 +104,11 @@ pipeline {
       }
     }
 
+    stage('oi') {
+      steps {
+        nexusPublisher(nexusInstanceId: 'ccem', nexusRepositoryId: 'docker-private', tagName: '34.95.196.22/otus-studio-fake:latest')
+      }
+    }
+
   }
 }
