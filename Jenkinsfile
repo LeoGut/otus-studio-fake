@@ -99,7 +99,7 @@ pipeline {
         echo 'Reached \'Build container\' stage.'
         sh '''#docker build --no-cache -t "34.95.196.22/elsasite:0.0.0" .
 docker images 34.95.196.22:8080/elsasite:0.0.0
-echo ${nexus-user}
+echo "${nexus-user}"
 #docker login -u="${nexus-user}" -p="{$nexus-pass}"
 #docker push 34.95.196.22:8080/elsasite:0.0.0'''
       }
