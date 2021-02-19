@@ -97,18 +97,25 @@ pipeline {
     stage('Build Container') {
       steps {
         echo 'Reached \'Build container\' stage.'
-        sh '''docker build --no-cache -t "34.95.196.22/otus-studio-fake:latest" .
-'''
-        sh 'docker images 34.95.196.22:8080/otus-studio-fake'
-        sh '#docker push 34.95.196.22:8080/otus-studio-fake:latest'
+        sh '''docker build --no-cache -t "34.95.196.22/elsasite:0.0.0" .
+docker images 34.95.196.22:8080/elsasite:0.0.0
+docker login -u="$nexus-user" -p="$nexus-pass"
+#docker push 34.95.196.22:8080/elsasite:0.0.0'''
       }
     }
 
-    stage('oi') {
+    stage('Push Docker Images to Nexus Registry') {
       steps {
-        nexusPublisher(nexusInstanceId: 'ccem', nexusRepositoryId: 'docker-private', tagName: '34.95.196.22/otus-studio-fake:latest')
-      }
-    }
+        script {
+          //withCredentials([usernamePassword(credentialsId: '', passwordVariable: 'nexus-pass', usernameVariable: 'nexus-user')]) {
+            //    sh 'docker login -u $nexus-user -p $nexus-pass 34.95.196.22'
+            //    sh 'docker push '
+            //}
+            echo "oi"
+          }
 
+        }
+      }
+
+    }
   }
-}
