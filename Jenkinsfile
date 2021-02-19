@@ -39,8 +39,8 @@ pipeline {
       steps {
         echo 'Reached \'Build App (branch)\' stage.'
         nodejs('node-10.18.1') {
-          sh 'npm install --prefix=source/'
-          sh 'npm run build --prefix=source/'
+          sh '#npm install --prefix=source/'
+          sh '#npm run build --prefix=source/'
         }
 
       }
@@ -77,8 +77,8 @@ pipeline {
             sh 'mv .npmrc ./source/.npmrc'
           }
 
-          sh 'npm install --prefix=source/'
-          sh 'npm run build --prefix=source/'
+          sh '#npm install --prefix=source/'
+          sh '#npm run build --prefix=source/'
         }
 
       }
@@ -94,18 +94,12 @@ pipeline {
       }
     }
 
-    stage('Docker Build') {
-      steps {
-        echo 'Reache \'Docker Build\' stage.'
-        sh 'docker build -t "34.95.196.22:8080/image_name_here:latest" .'
-      }
-    }
-
     stage('Build Container') {
       steps {
         echo 'Reached \'Build container\' stage.'
         sh 'docker build --no-cache -t "34.95.196.22:8080/otus-studio-fake:latest" .'
         sh 'docker images 34.95.196.22:8080/otus-studio-fake'
+        sh 'docker push 34.95.196.22:8080/otus-studio-fake:latest'
       }
     }
 
