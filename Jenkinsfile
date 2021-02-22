@@ -66,7 +66,7 @@ pipeline {
 
         sh 'git merge $BRANCH_NAME'
         nodejs('node-10.18.1') {
-          withNPM() {
+          withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
             sh 'mv .npmrc ./source/.npmrc'
           }
 
@@ -95,25 +95,17 @@ pipeline {
 #docker login -u="${nexus-user}" -p="{$nexus-pass}"
 #docker push 34.95.196.22:8080/elsasite:0.0.0'''
         script {
-          //withCredentials([usernamePassword(credentialsId: 'gitlablogin', passwordVariable: 'gitlabpass', usernameVariable: 'gitlabuser')]) {
-            // script{
-              //    sh 'echo "${gitlabpass}" | docker login -u="${gitlabuser}" --password-stdin "registry.gitlab.com"'
-              //    sh 'docker build -t registry.gitlab.com/ccem/otus-studio-frontend:0.0.0 .'
-              //    sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend:0.0.0'
-              //  }
-              //}
-
-              withDockerRegistry(credentialsId: 'gitlablogin', url: 'https://registry.gitlab.com') {
-                script{
-                  sh 'echo "${gitlabpass}" | docker login -u="${gitlabuser}" --password-stdin "registry.gitlab.com"'
-                  sh 'docker build -t registry.gitlab.com/ccem/otus-studio-frontend:0.0.0 .'
-                  sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend:0.0.0'
-                }
-              }
+          withDockerRegistry(credentialsId: 'gitlablogin', url: 'https://registry.gitlab.com') {
+            script{
+              sh 'echo "${gitlabpass}" | docker login -u="${gitlabuser}" --password-stdin "registry.gitlab.com"'
+              sh 'docker build -t registry.gitlab.com/ccem/otus-studio-frontend:0.0.0 .'
+              sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend:0.0.0'
             }
-
           }
         }
 
       }
     }
+
+  }
+}
