@@ -98,7 +98,7 @@ pipeline {
       steps {
         echo 'Reached \'Build container\' stage.'
         sh '''#docker build --no-cache -t "34.95.196.22/elsasite:0.0.0" .
-docker images 34.95.196.22:8080/elsasite:0.0.0
+#docker images 34.95.196.22:8080/elsasite:0.0.0
 #docker login -u="${nexus-user}" -p="{$nexus-pass}"
 #docker push 34.95.196.22:8080/elsasite:0.0.0'''
         script {
@@ -106,7 +106,8 @@ docker images 34.95.196.22:8080/elsasite:0.0.0
             script{
               sh 'echo "${gitlabpass}" | docker login -u="${gitlabuser}" --password-stdin "registry.gitlab.com"'
               //    sh 'docker push 34.95.196.22:8080/elsasite:0.0.0'
-              sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend'
+              sh 'docker build -t registry.gitlab.com/ccem/otus-studio-frontend:0.0.0 .'
+              sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend:0.0.0'
             }
           }
         }
