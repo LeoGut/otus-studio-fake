@@ -104,7 +104,7 @@ docker images 34.95.196.22:8080/elsasite:0.0.0
         script {
           withCredentials([usernamePassword(credentialsId: 'nexuslogin', passwordVariable: 'nexuspass', usernameVariable: 'nexususer')]) {
             script{
-              sh 'echo "${nexuspass}" | docker login -u="${nexususer}" --password-stdin "http://34.95.196.22:8080/"'
+              sh 'echo "${nexuspass}" | docker login -u="${nexususer}" --password-stdin "34.95.196.22:8080"'
               sh 'docker push 34.95.196.22:8080/elsasite:0.0.0'
             }
           }
