@@ -102,10 +102,11 @@ docker images 34.95.196.22:8080/elsasite:0.0.0
 #docker login -u="${nexus-user}" -p="{$nexus-pass}"
 #docker push 34.95.196.22:8080/elsasite:0.0.0'''
         script {
-          withCredentials([usernamePassword(credentialsId: 'nexuslogin', passwordVariable: 'nexuspass', usernameVariable: 'nexususer')]) {
+          withCredentials([usernamePassword(credentialsId: 'gitlablogin', passwordVariable: 'gitlabpass', usernameVariable: 'gitlabuser')]) {
             script{
-              sh 'echo "${nexuspass}" | docker login -u="${nexususer}" --password-stdin "https://34.95.196.22:8080/"'
-              sh 'docker push 34.95.196.22:8080/elsasite:0.0.0'
+              sh 'echo "${gitlabpass}" | docker login -u="${gitlabuser}" --password-stdin "registry.gitlab.com"'
+              //    sh 'docker push 34.95.196.22:8080/elsasite:0.0.0'
+              sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend'
             }
           }
         }
