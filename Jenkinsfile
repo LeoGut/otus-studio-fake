@@ -93,11 +93,15 @@ pipeline {
         sh '''#docker build --no-cache -t "34.95.196.22/elsasite:0.0.0" .
 #docker images 34.95.196.22:8080/elsasite:0.0.0
 #docker login -u="${nexus-user}" -p="{$nexus-pass}"
-#docker push 34.95.196.22:8080/elsasite:0.0.0'''
+#docker push 34.95.196.22:8080/elsasite:0.0.0
+
+
+docker build --nocache -t registry.gitlab.com/ccem/otus-studio-frontend .'''
         script {
           withCredentials([usernamePassword(credentialsId: 'GitlabTokenLeonardo', passwordVariable: 'GitLabPass', usernameVariable: 'GitLabUser')]) {
             script{
               sh 'echo $GitLabPass | docker login -u=$GitLabUser --password-stdin registry.gitlab.com'
+              sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend'
             }
           }
         }
