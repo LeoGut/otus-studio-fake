@@ -100,7 +100,7 @@ pipeline {
           }
         }
 
-        sh 'docker image prune -a --force --filter "until=240h"'
+        sh 'docker image prune -a --force --filter "until=24h"'
       }
     }
 
