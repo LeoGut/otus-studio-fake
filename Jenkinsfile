@@ -95,18 +95,6 @@ pipeline {
 #docker login -u="${nexus-user}" -p="{$nexus-pass}"
 #docker push 34.95.196.22:8080/elsasite:0.0.0'''
         script {
-          /*withDockerRegistry(credentialsId: 'gitlablogin', url: 'https://registry.gitlab.com') {
-            script{
-              sh 'echo "${gitlabpass}" | docker login -u="${gitlabuser}" --password-stdin "registry.gitlab.com"'
-              sh 'docker build -t registry.gitlab.com/ccem/otus-studio-frontend:0.0.0 .'
-              sh 'docker push registry.gitlab.com/ccem/otus-studio-frontend:0.0.0'
-            }
-          }
-          */
-          echo oi
-        }
-
-        script {
           withCredentials([usernamePassword(credentialsId: 'GitlabTokenLeonardo', passwordVariable: 'GitLabPass', usernameVariable: 'GitLabUser')]) {
             script{
               sh 'echo $GitLabPass | docker login -u=$GitLabUser --password-stdin registry.gitlab.com'
