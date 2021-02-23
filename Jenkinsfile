@@ -5,8 +5,8 @@ pipeline {
       parallel {
         stage('Docker') {
           steps {
-            sh '''docker -v
-                  docker images'''
+            sh 'docker -v'
+            sh 'docker images '
           }
         }
 
@@ -90,13 +90,6 @@ pipeline {
     stage('Build Container') {
       steps {
         echo 'Reached \'Build container\' stage.'
-        sh '''#docker build --no-cache -t "34.95.196.22/elsasite:0.0.0" .
-#docker images 34.95.196.22:8080/elsasite:0.0.0
-#docker login -u="${nexus-user}" -p="{$nexus-pass}"
-#docker push 34.95.196.22:8080/elsasite:0.0.0
-
-
-'''
         script {
           withCredentials([usernamePassword(credentialsId: 'GitlabTokenLeonardo', passwordVariable: 'GitLabPass', usernameVariable: 'GitLabUser')]) {
             script{
@@ -107,6 +100,7 @@ pipeline {
           }
         }
 
+        sh 'docker image prune -a --force --filter "until=240h"'
       }
     }
 
