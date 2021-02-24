@@ -7,7 +7,7 @@ pipeline {
           steps {
             sh 'docker -v'
             sh 'docker images -a'
-            sh 'docker image prune -a --force --filter "until=1m"'
+            sh 'docker image prune -a --force --filter "until=240h"'
             sh 'docker images -a'
           }
         }
@@ -102,14 +102,6 @@ pipeline {
           }
         }
 
-      }
-    }
-
-    stage('Clean old images') {
-      steps {
-        echo 'Reached \'Clean\' stage. Images older than 10 days will be removed from this workspace.'
-        sh 'docker image prune -a --force --filter "until=240h"'
-        sh 'docker images -a'
       }
     }
 
