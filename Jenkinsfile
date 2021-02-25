@@ -15,7 +15,7 @@ pipeline {
         stage('Node') {
           steps {
             nodejs('node-10.18.1') {
-              withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
+              withNPM(npmrcConfig: 'npmrcNexusLoginLeonardo') {
                 sh 'mv .npmrc ./source/.npmrc'
               }
 
@@ -60,15 +60,16 @@ pipeline {
     stage('Build App (merged)') {
       steps {
         echo 'Reached \'Build App (merged)\' stage.'
-        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'leogut-key')
+        sh 'git merge dev'
+        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'GitHubTokenLeonardo')
         sh 'git status'
         script {
           echo 'branch name: ' + env.BRANCH_NAME
         }
 
-        sh 'git merge $BRANCH_NAME'
+        sh 'git merge --no-ff $BRANCH_NAME'
         nodejs('node-10.18.1') {
-          withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
+          withNPM(npmrcConfig: 'npmrcNexusLoginLeonardo') {
             sh 'mv .npmrc ./source/.npmrc'
           }
 
