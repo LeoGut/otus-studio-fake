@@ -40,7 +40,7 @@ pipeline {
       steps {
         echo 'Reached \'Build App (branch)\' stage.'
         nodejs('node-10.18.1') {
-          sh 'npm install --prefix=source/'
+          sh '#npm install --prefix=source/'
           sh '#npm run build --prefix=source/'
         }
 
@@ -90,9 +90,9 @@ pipeline {
       }
     }
 
-    stage('Build Container') {
+    stage('Build & Push') {
       steps {
-        echo 'Reached \'Build container\' stage.'
+        echo 'Reached \'Build & Push\' stage.'
         script {
           withCredentials([usernamePassword(credentialsId: 'GitlabTokenLeonardo', passwordVariable: 'GitLabPass', usernameVariable: 'GitLabUser')]) {
             script{
