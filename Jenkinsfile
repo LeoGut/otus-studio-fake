@@ -15,7 +15,7 @@ pipeline {
         stage('Node') {
           steps {
             nodejs('node-10.18.1') {
-              withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
+              withNPM(npmrcConfig: 'npmrcNexusLoginLeonardo') {
                 sh 'mv .npmrc ./source/.npmrc'
               }
 
@@ -40,8 +40,8 @@ pipeline {
       steps {
         echo 'Reached \'Build App (branch)\' stage.'
         nodejs('node-10.18.1') {
-          sh '#npm install --prefix=source/'
-          sh '#npm run build --prefix=source/'
+          sh 'npm install --prefix=source/'
+          sh 'npm run build --prefix=source/'
         }
 
       }
@@ -51,7 +51,7 @@ pipeline {
       steps {
         echo 'Reached \'Unit Tests (branch)\' stage.'
         nodejs('node-10.18.1') {
-          sh '#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
+          sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
 
       }
@@ -60,20 +60,20 @@ pipeline {
     stage('Build App (merged)') {
       steps {
         echo 'Reached \'Build App (merged)\' stage.'
-        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'leogut-key')
+        git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'GitHubTokenLeonardo')
         sh 'git status'
         script {
           echo 'branch name: ' + env.BRANCH_NAME
         }
 
-        sh 'git merge $BRANCH_NAME'
+        sh 'git merge --no-ff $BRANCH_NAME'
         nodejs('node-10.18.1') {
           withNPM(npmrcConfig: '0b4cb1d8-cb2b-4f4d-b482-f09174e56d9c') {
             sh 'mv .npmrc ./source/.npmrc'
           }
 
-          sh '#npm install --prefix=source/'
-          sh '#npm run build --prefix=source/'
+          sh 'npm install --prefix=source/'
+          sh 'npm run build --prefix=source/'
         }
 
       }
@@ -83,7 +83,7 @@ pipeline {
       steps {
         echo 'Reached \'Unit Tests (merged)\' stage.'
         nodejs('node-10.18.1') {
-          sh '#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
+          sh 'export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
 
       }
