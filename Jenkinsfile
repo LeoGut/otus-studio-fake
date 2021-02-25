@@ -14,7 +14,7 @@ pipeline {
 
         stage('Node') {
           steps {
-            nodejs(nodeJSInstallationName: 'node-10.18.1', configId: 'node-10.18.1') {
+            nodejs('node-10.18.1') {
               withNPM(npmrcConfig: 'npmrcNexusLoginLeonardo') {
                 sh 'mv .npmrc ./source/.npmrc'
               }
@@ -39,7 +39,7 @@ pipeline {
     stage('Build App (branch)') {
       steps {
         echo 'Reached \'Build App (branch)\' stage.'
-        nodejs(nodeJSInstallationName: 'node-10.18.1', configId: 'node-10.18.1') {
+        nodejs('node-10.18.1') {
           sh '#npm install --prefix=source/'
           sh '#npm run build --prefix=source/'
         }
@@ -50,7 +50,7 @@ pipeline {
     stage('Unit Tests (branch)') {
       steps {
         echo 'Reached \'Unit Tests (branch)\' stage.'
-        nodejs(nodeJSInstallationName: 'node-10.18.1', configId: 'node-10.18.1') {
+        nodejs('node-10.18.1') {
           sh '#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
 
@@ -68,7 +68,7 @@ pipeline {
         }
 
         sh 'git merge --no-ff $BRANCH_NAME'
-        nodejs(nodeJSInstallationName: 'node-10.18.1', configId: 'node-10.18.1') {
+        nodejs('node-10.18.1') {
           withNPM(npmrcConfig: 'npmrcNexusLoginLeonardo') {
             sh 'mv .npmrc ./source/.npmrc'
           }
@@ -83,7 +83,7 @@ pipeline {
     stage('Unit Tests (merged)') {
       steps {
         echo 'Reached \'Unit Tests (merged)\' stage.'
-        nodejs(nodeJSInstallationName: 'node-10.18.1', configId: 'node-10.18.1') {
+        nodejs('node-10.18.1') {
           sh '#export OPENSSL_CONF="${WORKSPACE}/openssl.cnf"; npm run test --prefix=source/'
         }
 
