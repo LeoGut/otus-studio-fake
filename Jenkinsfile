@@ -40,8 +40,8 @@ pipeline {
       steps {
         echo 'Reached \'Build App (branch)\' stage.'
         nodejs('node-10.18.1') {
-          sh 'npm install --prefix=source/'
-          sh 'npm run build --prefix=source/'
+          sh '#npm install --prefix=source/'
+          sh '#npm run build --prefix=source/'
         }
 
       }
@@ -72,8 +72,8 @@ pipeline {
             sh 'mv .npmrc ./source/.npmrc'
           }
 
-          sh 'npm install --prefix=source/'
-          sh 'npm run build --prefix=source/'
+          sh '#npm install --prefix=source/'
+          sh '#npm run build --prefix=source/'
         }
 
       }
