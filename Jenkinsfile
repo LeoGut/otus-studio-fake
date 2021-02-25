@@ -29,7 +29,7 @@ pipeline {
         stage('Git') {
           steps {
             sh 'git --version'
-            sh 'git status'
+            sh 'git status '
           }
         }
 
