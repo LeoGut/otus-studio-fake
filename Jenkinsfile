@@ -90,9 +90,9 @@ pipeline {
       }
     }
 
-    stage('Build Container') {
+    stage('Build & Push') {
       steps {
-        echo 'Reached \'Build container\' stage.'
+        echo 'Reached \'Build & Push\' stage.'
         script {
           withCredentials([usernamePassword(credentialsId: 'GitlabTokenLeonardo', passwordVariable: 'GitLabPass', usernameVariable: 'GitLabUser')]) {
             script{
