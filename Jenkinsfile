@@ -60,7 +60,7 @@ pipeline {
     stage('Build App (merged)') {
       steps {
         echo 'Reached \'Build App (merged)\' stage.'
-        sh 'git merge dev'
+        sh 'git merge origin dev'
         git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'GitHubTokenLeonardo')
         sh 'git status'
         script {
