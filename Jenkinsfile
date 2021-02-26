@@ -103,7 +103,9 @@ pipeline {
           }
         }
 
-        sh 'git push origin dev'
+        sh '''git remote show origin
+'''
+        sh 'git show origin'
       }
     }
 
