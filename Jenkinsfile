@@ -60,7 +60,6 @@ pipeline {
     stage('Build App (merged)') {
       steps {
         echo 'Reached \'Build App (merged)\' stage.'
-        sh 'git merge dev'
         git(url: 'https://github.com/LeoGut/otus-studio-fake.git', branch: 'dev', credentialsId: 'GitHubTokenLeonardo')
         sh 'git status'
         script {
@@ -90,9 +89,9 @@ pipeline {
       }
     }
 
-    stage('Build Container') {
+    stage('Build & Push') {
       steps {
-        echo 'Reached \'Build container\' stage.'
+        echo 'Reached \'Build & Push\' stage.'
         script {
           withCredentials([usernamePassword(credentialsId: 'GitlabTokenLeonardo', passwordVariable: 'GitLabPass', usernameVariable: 'GitLabUser')]) {
             script{
