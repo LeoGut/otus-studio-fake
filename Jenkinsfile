@@ -103,6 +103,7 @@ pipeline {
           }
         }
 
+        sh 'git push origin dev'
       }
     }
 
